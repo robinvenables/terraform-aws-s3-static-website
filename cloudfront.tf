@@ -7,7 +7,7 @@ resource "aws_cloudfront_distribution" "root_site_cdn" {
       origin_ssl_protocols   = ["TLSv1.2"]
     }
 
-    domain_name = aws_s3_bucket.root_site.website_endpoint
+    domain_name = aws_s3_bucket_website_configuration.root_site_website_configuration.website_endpoint
     origin_id   = var.root_domain_name
   }
 
@@ -57,7 +57,7 @@ resource "aws_cloudfront_distribution" "www_site_cdn" {
       origin_ssl_protocols   = ["TLSv1.2"]
     }
 
-    domain_name = aws_s3_bucket.www_site.website_endpoint
+    domain_name = aws_s3_bucket_website_configuration.www_site_website_configuration.website_endpoint
     origin_id   = "www.${var.root_domain_name}"
   }
 
