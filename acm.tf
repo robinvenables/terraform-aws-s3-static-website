@@ -1,5 +1,6 @@
-module "get_certificate" {
-  source = "git@github.com:robinvenables/terraform-aws-dns-validated-certificate"
+module "dns_validated_certificate" {
+  source  = "app.terraform.io/venables/dns-validated-certificate/aws"
+  version = "1.0.0"
 
   dns_domain_name         = var.root_domain_name
   certificate_domain_name = var.root_domain_name
@@ -11,5 +12,5 @@ module "get_certificate" {
 }
 
 locals {
-  certificate_arn = module.get_certificate.certificate_arn
+  certificate_arn = module.dns_validated_certificate.certificate_arn
 }
