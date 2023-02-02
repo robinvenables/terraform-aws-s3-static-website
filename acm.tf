@@ -1,6 +1,6 @@
 module "dns_validated_certificate" {
   source  = "app.terraform.io/venables/dns-validated-certificate/aws"
-  version = "1.0.0"
+  version = "1.0.1"
 
   dns_domain_name         = var.root_domain_name
   certificate_domain_name = var.root_domain_name
