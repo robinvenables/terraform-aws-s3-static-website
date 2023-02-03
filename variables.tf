@@ -8,13 +8,16 @@ variable "region" {
   type        = string
 }
 
-variable "pages" {
-  description = "Names of the Index and Error pages to use"
-  type        = map(any)
-  default = {
-    index = "index.html"
-    error = "404.html"
-  }
+variable index_page {}
+  description = "Name of the index page"
+  type        = string
+  default     = "index.html"
+}
+
+variable error_page {}
+  description = "Name of the error page"
+  type        = string
+  default     = "404.html"
 }
 
 variable "access_logging" {
@@ -23,11 +26,14 @@ variable "access_logging" {
   default     = false
 }
 
-variable "logging_bucket" {
-  description = "Name and prefix for website logging bucket"
-  type        = map(any)
-  default = {
-    name   = "none"
-    prefix = "none"
-  }
+variable "logging_bucket_name" {
+  description = "Name of the website logging bucket"
+  type        = string
+  default     = "none"
+}
+
+variable "logging_bucket_prefix" {
+  description = "Prefix to use in the logging bucket"
+  type        = string
+  default     = "none"
 }

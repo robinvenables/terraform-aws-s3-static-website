@@ -45,11 +45,11 @@ resource "aws_s3_bucket_website_configuration" "root_site_website_configuration"
   bucket = aws_s3_bucket.root_site_bucket.id
 
   index_document {
-    suffix = var.pages.index
+    suffix = var.index_page
   }
 
   error_document {
-    key = var.pages.error
+    key = var.error_page
   }
 }
 
@@ -58,8 +58,8 @@ resource "aws_s3_bucket_logging" "root_site_logging" {
 
   count = var.access_logging ? 1 : 0
 
-  target_bucket = var.logging_bucket.name
-  target_prefix = var.logging_bucket.prefix
+  target_bucket = var.logging_bucket_name
+  target_prefix = var.logging_bucket_prefix
 }
 
 resource "aws_s3_bucket" "www_site_bucket" {

@@ -11,47 +11,18 @@ These scripts build an AWS S3-hosted static website with the following component
 
 ## Inputs
 
-```hcl
-variable "root_domain_name" {
-  description = "The root domain name for this website. The www. subdomain will redirect to this"
-  type        = string
-}
-
-variable "region" {
-  description = "The AWS region this website will be created in (e.g. eu-west-2)"
-  type        = string
-}
-
-variable "pages" {
-  description = "Names of the Index and Error pages to use"
-  type        = map(any)
-  default = {
-    index = "index.html"
-    error = "404.html"
-  }
-}
-
-variable "access_logging" {
-  description = "Enable logging for the website"
-  type        = bool
-  default     = false
-}
-
-variable "logging_bucket" {
-  description = "Name and prefix for website logging bucket"
-  type        = map(any)
-  default = {
-    bucket_name = "none"
-    prefix      = "none"
-  }
-}
-```
+|Name|Description|Default Value|
+|----|-----------|-------------|
+|root_domain_name|The root domain name for this website. The www. subdomain will redirect to this||
+|region|The AWS region this website will be created in (e.g. eu-west-2)||
+|index_page|Name of the index document|index.html|
+|error_page|Name of the error document|404.html|
+|access_logging|Whether to enable logging for the website|false|
+|logging_bucket_name|Name of the website logging bucket|none|
+|logging_bucket_prefix|Prefix to use in the logging bucket|none|
 
 ## Outputs
 
-```hcl
-output "cloudfront_id" {
-  value       = aws_cloudfront_distribution.root_site_cdn.id
-  description = "The CloudFront ID to deploy the website to."
-}
-```
+|Name|Description|
+|----|-----------|
+|cloudfront_id|The CloudFront ID to deploy the website to|
