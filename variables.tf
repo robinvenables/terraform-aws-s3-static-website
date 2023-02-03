@@ -8,13 +8,13 @@ variable "region" {
   type        = string
 }
 
-variable index_page {}
+variable "index_page" {
   description = "Name of the index page"
   type        = string
   default     = "index.html"
 }
 
-variable error_page {}
+variable "error_page" {
   description = "Name of the error page"
   type        = string
   default     = "404.html"
