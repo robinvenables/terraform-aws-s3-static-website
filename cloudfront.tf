@@ -12,7 +12,7 @@ resource "aws_cloudfront_distribution" "root_site_cdn" {
   }
 
   enabled             = true
-  default_root_object = var.pages.index
+  default_root_object = var.index_page
 
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
@@ -62,7 +62,7 @@ resource "aws_cloudfront_distribution" "www_site_cdn" {
   }
 
   enabled             = true
-  default_root_object = var.pages.index
+  default_root_object = var.index_page
 
   default_cache_behavior {
     viewer_protocol_policy = "redirect-to-https"
