@@ -2,33 +2,31 @@ resource "aws_s3_bucket" "root_site_bucket" {
   bucket = var.root_domain_name
 }
 
+resource "aws_s3_bucket_ownership_controls" "root_site_ownership_controls" {
+  bucket = aws_s3_bucket.root_site_bucket.id
+
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_public_access_block" "root_site_public_access_block" {
+  bucket = aws_s3_bucket.root_site.id
+
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
+}
+
 resource "aws_s3_bucket_acl" "root_site_acl" {
-  bucket = aws_s3_bucket.root_site_bucket.id
+  depends_on = [
+    aws_s3_bucket_ownership_controls.root_site_ownership_controls,
+    aws_s3_bucket_public_access_block.root_site_public_access_block,
+  ]
 
+  bucket = aws_s3_bucket.root_site_bucket.id
   acl = "public-read"
-}
-
-resource "aws_s3_bucket_policy" "root_site_policy" {
-  bucket = aws_s3_bucket.root_site_bucket.id
-
-  policy = <<POLICY
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "PublicReadGetObject",
-            "Effect": "Allow",
-            "Principal": "*",
-            "Action": [
-                "s3:GetObject"
-            ],
-            "Resource": [
-                "arn:aws:s3:::${var.root_domain_name}/*"
-            ]
-        }
-    ]
-}
-POLICY
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "root_site_encryption_configuration" {
@@ -66,9 +64,18 @@ resource "aws_s3_bucket" "www_site_bucket" {
   bucket = "www.${var.root_domain_name}"
 }
 
-resource "aws_s3_bucket_acl" "www_site_acl" {
+resource "aws_s3_bucket_ownership_controls" "www_site_ownership_controls" {
   bucket = aws_s3_bucket.www_site_bucket.id
 
+  rule {
+    object_ownership = "BucketOwnerPreferred"
+  }
+}
+
+resource "aws_s3_bucket_acl" "www_site_acl" {
+  depends_on = [aws_s3_bucket_ownership_controls.www_site_ownership_controls]
+  
+  bucket = aws_s3_bucket.www_site_bucket.id
   acl = "private"
 }
 
