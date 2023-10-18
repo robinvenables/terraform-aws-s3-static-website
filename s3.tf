@@ -11,7 +11,7 @@ resource "aws_s3_bucket_ownership_controls" "root_site_ownership_controls" {
 }
 
 resource "aws_s3_bucket_public_access_block" "root_site_public_access_block" {
-  bucket = aws_s3_bucket.root_site.id
+  bucket = aws_s3_bucket.root_site_bucket.id
 
   block_public_acls       = false
   block_public_policy     = false
