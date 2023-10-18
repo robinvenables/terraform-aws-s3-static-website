@@ -29,6 +29,29 @@ resource "aws_s3_bucket_acl" "root_site_acl" {
   acl = "public-read"
 }
 
+resource "aws_s3_bucket_policy" "root_site_policy" {
+  bucket = aws_s3_bucket.root_site_bucket.id
+
+  policy = <<POLICY
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicReadGetObject",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": [
+                "s3:GetObject"
+            ],
+            "Resource": [
+                "arn:aws:s3:::${var.root_domain_name}/*"
+            ]
+        }
+    ]
+}
+POLICY
+}
+
 resource "aws_s3_bucket_server_side_encryption_configuration" "root_site_encryption_configuration" {
   bucket = aws_s3_bucket.root_site_bucket.id
 
