@@ -26,7 +26,7 @@ resource "aws_s3_bucket_acl" "root_site_acl" {
   ]
 
   bucket = aws_s3_bucket.root_site_bucket.id
-  acl = "public-read"
+  acl    = "public-read"
 }
 
 resource "aws_s3_bucket_policy" "root_site_policy" {
@@ -97,9 +97,9 @@ resource "aws_s3_bucket_ownership_controls" "www_site_ownership_controls" {
 
 resource "aws_s3_bucket_acl" "www_site_acl" {
   depends_on = [aws_s3_bucket_ownership_controls.www_site_ownership_controls]
-  
+
   bucket = aws_s3_bucket.www_site_bucket.id
-  acl = "private"
+  acl    = "private"
 }
 
 resource "aws_s3_bucket_website_configuration" "www_site_website_configuration" {
